@@ -1,0 +1,79 @@
+/*** px2rem的配置 ***/
+@use postcss-pxtorem {
+	rootValue: 75; 		//基数  1rem = 75px
+	replace: true;     //false：不替换当前属性为px，会再生成一条相同的属性，rem的优先级更高
+	propList: ['*'];	//匹配属性列表，*号代表匹配所有属性
+};
+
+/*** Sass工具 ***/
+@import "base/mixin";  //混合器
+@import "base/rem";    //rem、em函数
+
+/*** 样式初始化 ***/
+@import "base/reset";  //样式重置
+@import "base/media";  //媒体查询
+@import "common";	   //公共样式
+
+/*** 雪碧图模块 ***/
+@import "sprites";  //样式重置
+
+
+/*** 页面样式从这里开始 ***/
+article {
+	padding: 15px;
+	font-size: 28px;
+}
+
+.sprites-img {
+	i {
+		display: inline-block;
+		vertical-align: middle;
+		margin: 20px;
+	}
+}
+
+.sprites-svg {
+	font-size: rem(24);
+	svg {
+		margin: 20PX;
+		width: 2em;
+		height: 2em;
+	}
+}
+
+[class^=b64] {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 20px;
+}
+
+.b64-cancel {
+	size: 24px;
+	background: url('../assets/base64/icon-cancel.png') no-repeat;
+	background-size: 24px;
+}
+
+.b64-arr-rt {
+	size: 12px 22px;
+	background: url('../assets/base64/icon-arr-rt.png') no-repeat;
+	background-size: 12px 22px;
+}
+
+.b64-clear {
+	size: 24px;
+	background: url('../assets/base64/icon-clear.png') no-repeat;
+	background-size: 24px;
+}
+
+.b64-nav {
+	size: 42px;
+	background: url('../assets/base64/icon-nav.png') no-repeat;
+	background-size: 42px;
+}
+
+.b64-search {
+	size: 42px;
+	background: url('../assets/base64/icon-search.png') no-repeat;
+	background-size: 42px;
+}
+

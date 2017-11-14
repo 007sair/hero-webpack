@@ -1,0 +1,70 @@
+//------------------
+// Animat
+//------------------
+@import "prefixer";
+
+
+/**
+ * 动画名称
+ * @param  {[type]} $name 为keyframes对应的名称
+ */
+@mixin an-name($name) {
+	@include prefixer(animation-name, $name);
+}
+
+
+/**
+ * 动画持续时间
+ * @param  {[type]} $val 以秒为单位
+ */
+@mixin an-duration($val) {
+	@include prefixer(animation-duration, $val);
+}
+
+
+/**
+ * 动画的过渡类型 
+ * @param  {[type]} $val [过度类型，值如下]
+ *  [ease]          	默认值，逐渐变慢
+ *	[linear] 			匀速
+ *	[ease-in] 			加速
+ *	[ease-out] 			减速
+ *	[ease-in-out] 		加速再减速
+ *	[cubic-bezier] 		自定义
+ */
+@mixin an-function($val) {
+	@include prefixer(animation-timing-function, $val);
+}
+
+
+/**
+ * 动画延迟时间
+ * @param  {[type]} $val [以秒为单位]
+ */
+@mixin an-delay($val) {
+	@include prefixer(animation-delay, $val);
+}
+
+
+/**
+ * 动画循环次数
+ * @param  {[type]} $val [循环值]
+ *  [number] 		循环次数
+ *	[infinite]  	无限循环
+ */
+@mixin an-count($val) {
+	@include prefixer(animation-iteration-count, $val);
+}
+
+
+/**
+ * 规定对象动画时间之外的状态
+ * @param  {[type]} $val [值如下：]
+ *  [none] 			不改变默认行为
+ *  [forwards] 		表示将动画元素设置为整个动画结束时的状态
+ *  [backwards] 	明确设置动画结束之后回到初始状态
+ *  [both] 			表示设置为结束或者开始时候的状态。一般都是回到默认状态
+ */
+@mixin an-fillmode($val) {
+	@include prefixer(animation-fill-mode, $val);
+}

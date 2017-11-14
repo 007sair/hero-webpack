@@ -1,0 +1,59 @@
+//------------------
+// rem -> px
+//------------------
+
+//默认设置
+$isPX: false !default; //[是否使用px单位] 		true => 始终返回640比例的尺寸   false => 返回rem单位
+$design: 750 !default; //[当前设计稿尺寸]		640/750
+$output: 750 !default; //[需要输出的数值类型]  	640/750 	修改数值需修改对应的js   640=>rem.js   750=>flexible.js
+
+//优先使用config中的配置
+@import "../config";
+
+/**
+ * 根据当前设计稿尺寸与输出尺寸输出单位为rem的值
+ * @param  {[number]} $px 	[设计稿尺寸中量取的大小]
+ * @return {[string]}     	[返回rem或px 取决于$isPX]
+ */
+@function rem($px) {
+	@if $design == 750 { //如果设计稿为750
+		@if $isPX { //750输出640比例的px
+			@return ($px * 640 / 750) / 2 * 1px;
+		} @else { //输出rem
+			@if $output == 640 {
+				@return ($px * 640 / 750) / 40 * 1rem;
+			}
+			@if $output == 750 {
+				@return $px / 75 * 1rem;
+			}
+		}
+	}
+	@if $design == 640 { //如果设计稿为640
+		@if $isPX {
+			@return $px / 2 * 1px;
+		} @else { //输出rem
+			@if $output == 640 {
+				@return $px / 40 * 1rem;
+			}
+			@if $output == 750 {
+				@return ($px * 750 / 640) / 75 * 1rem;
+			}
+		}
+	}
+	@warn "error $px not 640 or 750";
+	@return $px / 40 * 1rem;
+}
+
+
+/**
+ * 根据父元素字号将当前数值（$px）转换为em
+ * @param  {[number]} $px 	    [当前元素想定义的单位数值，不带单位的px数值]
+ * @param  {[number]} $parent 	[当前元素父元素的font-size，默认值为12px]
+ * @return {[string]}     	    [返回em单位的数值]
+ * 举例：
+ * font-size: em(18, 12); //表示父元素的字号为12px时，当前font-size被计算出来的em值恰好为18px
+ *    
+ */
+@function em($px, $parent: 12) {
+    @return $px / $parent * 1em;
+}

@@ -1,0 +1,65 @@
+/*
+ * 此文件为举例 postcss 用法，实际开发不用此文件
+ */
+
+/*
+ * postCss用法
+ * -----------
+ * ！！注意: 由于本文件会经sass编译，所以某些postcss功能在这里会有冲突，甚至报错，请慎用
+ */
+
+/* 可以将rem转换成px，rootValue为基数 */
+@use pixrem {
+    rootValue: 75;
+    html: false; //解决冲突
+};
+
+/* 变量用法 from postcss-cssnext */
+:root {
+    --red: #f00;
+    --blue: blue;
+    --fontSize: 1rem;
+}
+
+.var {
+    color: var(--red);
+    font-size: var(--fontSize);
+}
+
+.calc {
+    font-size: calc(var(--fontSize) * 2);
+}
+ 
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+:--heading {
+    font-weight: bold;
+} 
+
+.sky {
+    margin: 1rem 2px 3em 100%; /*rem2px*/
+    color: blue;
+}
+
+
+/**
+ * 添加前缀
+ * cssnext.autoprefixer
+ */
+.flex {
+    display: flex;
+}
+
+/* 简短写法 */
+.short {
+    position: relative;
+	size: 10px;
+    -s-position: absolute 1px 2px _ 4px;
+    margin: _ 10px; 
+    color: blue red;
+    overflow: hidden auto;
+    border: 1px 2px / solid / #f00;
+    border-left-radius: 3px;
+    font-size: 12px / 20px;
+}
+
+

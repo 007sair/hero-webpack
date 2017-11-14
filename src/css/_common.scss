@@ -1,0 +1,87 @@
+/**
+ * 定义变量，优先使用config.scss中的变量
+ */
+
+$dpr: false !default;
+
+@import "config.scss";
+
+/* 公共样式 */
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clearfix {
+    @include clearfix;
+}
+
+.sticky {
+    position: sticky !important;
+    position: -webkit-sticky !important;
+}
+
+.hide {
+    display: none;
+}
+
+[class^=J_], [class^=js_] { //解决移动端div点击事件不可点的bug
+    cursor: pointer;
+}
+
+//是否使用dpr的共用单位
+@mixin font-dpr($font-size) {
+    font-size: $font-size;
+    @if $dpr {
+        [data-dpr="2"] & {
+            font-size: $font-size * 2;
+        }
+        [data-dpr="3"] & {
+            font-size: $font-size * 3;
+        }
+    }
+}
+
+/**
+ * DPR公共字体
+ */
+
+@if $dpr {
+    $fzs: 12, 14, 16, 18, 20, 22, 24;
+    @each $fz in $fzs {
+        .f#{$fz} {
+            @include font-dpr($fz * 1px)
+        }
+    }
+}
+
+
+/* 价格专用样式
+ * -----------
+ * <p class="sp">现价：<em>56</em></p>
+ * <p class="mp">市场价：<del>100</del></p>
+ */
+
+%rmb {
+    &:before {
+        content: '\00A5';
+    }
+}
+
+.sp em {
+    @extend %rmb;
+    font-style: normal;
+}
+
+.mp del {
+    @extend %rmb;
+}
+
+.icon-svg {
+    width: 1em;
+    height: 1em;
+}

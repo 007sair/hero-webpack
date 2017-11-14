@@ -1,0 +1,79 @@
+//------------------
+// CSS3
+//------------------
+@import "prefixer";
+
+//css3
+@mixin radius($radius) {
+	@include prefixer(border-radius, $radius);
+}
+
+@mixin shadow($type) {
+	@include prefixer(box-shadow, $type);
+}
+
+@mixin sizing($type){
+	@include prefixer(box-sizing, $type);
+}
+
+@mixin transition($value){
+	@include prefixer(transition, $value);
+}
+
+@mixin rotate($value) {
+	@include prefixer(transform, rotate($value));
+}
+
+@mixin origin($value){
+	@include prefixer(transform-origin, $value);
+}
+
+@mixin scale($value){
+	@include prefixer(transform, scale($value));
+}
+
+@mixin scale3d($value){
+	@include prefixer(transform, scale3d($value));
+}
+
+@mixin translate($value){
+	@include prefixer(transform, translate($value));
+}
+
+@mixin translate3d($value){
+	@include prefixer(transform, translate3d($value));
+}
+
+@mixin linear-gradient($from, $to) {
+    background-color: $to;											//Fallback for sad browsers
+    background-image:-moz-linear-gradient($from, $to);				//Mozilla Firefox
+    background-image:-o-linear-gradient($from, $to);				//Opera
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, $from), color-stop(1, $to));			//WebKit (Chrome 11+)
+    background-image: -webkit-linear-gradient($from, $to);			//WebKit (Safari 5.1+, Chrome 10+)
+    background-image: -ms-linear-gradient($from, $to);				//IE10
+    background-image: linear-gradient($from, $to);					//W3C
+}
+
+// Background Gradient: Top to Bottom
+@mixin bg-gradient-t2b($start-colour, $end-colour) {
+    background-color: $start-colour;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($start-colour), to($end-colour));
+    background-image: -webkit-linear-gradient(top, $start-colour, $end-colour);
+    background-image: -moz-linear-gradient(top, $start-colour, $end-colour);
+    background-image: -ms-linear-gradient(top, $start-colour, $end-colour);
+    background-image: -o-linear-gradient(top, $start-colour, $end-colour);
+    background-image: linear-gradient(top, $start-colour, $end-colour);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str(rgba($start-colour,1))},endColorstr=#{ie-hex-str(rgba($end-colour,1))});
+}
+
+// Background Gradient: Left to Right
+@mixin bg-gradient-l2r($start-colour, $end-colour) {
+    background-color: $start-colour;
+    background-image: -webkit-gradient(linear, left top, right top, from($start-colour), to($end-colour));
+    background-image: -webkit-linear-gradient(left, $start-colour, $end-colour);
+    background-image: -moz-linear-gradient(left, $start-colour, $end-colour);
+    background-image: -ms-linear-gradient(left, $start-colour, $end-colour);
+    background-image: -o-linear-gradient(left, $start-colour, $end-colour);
+    background-image: linear-gradient(left, $start-colour, $end-colour);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str(rgba($start-colour,1))}, endColorstr=#{ie-hex-str(rgba($end-colour,1))}, gradientType='1');
+}

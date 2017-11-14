@@ -1,0 +1,457 @@
+//------------------
+// mixin混合器
+//------------------
+
+@import "css3";   //css3 mixins
+
+/**
+ * 清除浮动
+ * @param  {[type]} $legacy-support-for-ie: true     [是否支持ie8-  默认支持]
+ */
+ @mixin clearfix($legacy-support-for-ie: true) {
+    @if $legacy-support-for-ie {
+        *zoom: 1;
+    }
+    &:before, &:after {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+        overflow: hidden;
+    }
+}
+
+%clearfix {
+    @include clearfix;
+}
+
+/**
+ * 半透明
+ * @param  {[type]} $opacity:.65         [透明数值 0-1]
+ * @param  {[type]} $support-for-ie:true [是否支持ie8-  默认支持]
+ */
+@mixin opacity($opacity: .65, $support-for-ie: true) {
+	opacity: $opacity;
+	@if $support-for-ie{
+		$opacity-ie: $opacity * 100;
+		filter: alpha(opacity=$opacity-ie); //IE8
+	}
+}
+
+/**
+ * 背景半透明
+ * @param  {[type]} $color               [色值 如：#f00]
+ * @param  {[type]} $opacity             [透明度  0-1]
+ * @param  {[type]} $support-for-ie:true [是否支持ie  默认支持]
+ */
+@mixin rgba($color, $opacity, $support-for-ie: true) {
+	background-color:rgba($color,$opacity);
+	@if $support-for-ie {
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{ie-hex-str(rgba($color,$opacity))},endColorstr=#{ie-hex-str(rgba($color,$opacity))});
+		:root & { //for ie9
+			filter: none;
+		}
+	}
+}
+
+//float 
+@mixin float($direction: left, $support-for-ie: false) {
+	float: unquote($direction);
+	@if $support-for-ie {
+		_display: inline;
+	}
+}
+
+//inline-block
+@mixin inline-block($alignment: middle, $support-for-ie: false) {
+	display: inline-block;
+	@if $alignment and $alignment != none {
+		vertical-align: $alignment;
+	}
+	@if $support-for-ie {
+		*vertical-align: auto;
+		*display: inline;
+		*zoom: 1;
+	}
+}
+
+/**
+ * 最小宽高
+ * @param  {[type]} $type [width or height]
+ * @param  {[type]} $num  [数值]
+ */
+@mixin min-wh($type, $num) {
+	@if ($type == width or $type == both ) {
+		min-width: $num;
+		width: auto !important; 
+		_width: $num;
+	}
+	@if ($type == height or $type == both) {
+		min-height: $num;
+		height: auto !important; 
+		_height: $num;
+	}
+}
+
+/**
+ * input等输入框的默认样式重置
+ * @param  {[type]} $color [文字色值]
+ */
+@mixin placeholder($color) {
+	&::-webkit-input-placeholder {
+		color: $color; 
+	} 
+	&:-moz-placeholder {
+		color: $color;
+	} 
+	&::-moz-placeholder {
+		color: $color;
+	}
+	&:-ms-input-placeholder {
+		color: $color; 
+	}
+}
+
+
+/**
+ * 全屏遮罩
+ */
+@mixin mask($zIndex: 1000) {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: $zIndex;
+}
+
+/**
+ * 纯色三角箭头
+ * @param  {[type]} $direction [箭头方向]
+ * @param  {[type]} $width     [箭头宽度]
+ * @param  {[type]} $color     [箭头背景色]
+ */
+@mixin arrow($direction, $width, $color) {
+	width: 0;
+	height: 0;
+	@if $direction == top {
+		border-left: $width solid transparent;
+    	border-right: $width solid transparent;
+    	border-bottom: $width solid $color;
+	}
+	@if $direction == right {
+		border-top: $width solid transparent;
+    	border-bottom: $width solid transparent;
+		border-left: $width solid $color;
+	}
+	@if $direction == bottom {
+		border-left: $width solid transparent;
+    	border-right: $width solid transparent;
+    	border-top: $width solid $color;
+	}
+	@if $direction == left {
+		border-top: $width solid transparent;
+    	border-bottom: $width solid transparent;
+		border-right: $width solid $color;
+	}
+}
+
+/**
+ * 文字溢出显示点点点
+ * @param  {[type]} $line:      1             [控制溢出行数]
+ * @param  {[type]} $substract: null          [控制剪切宽度]
+ */
+@mixin ellipsis($line: 1, $substract: null) {
+    @if $line == 1 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    } @else {
+        display: -webkit-box;
+        display: box;
+        -webkit-line-clamp: $line;
+        line-clamp: $line;
+        -webkit-box-orient: vertical;
+        box-orient: vertical;
+        @if $substract {
+			width: 100% - $substract;
+        }
+    }
+    overflow: hidden;
+}
+
+
+/**
+ * flex布局 Polyfill
+ */
+@mixin flexbox {
+	display: -webkit-box;           //OLD - iOS 6-, Safari 3.1-6 //老版本语法: Safari,  iOS, Android browser, older WebKit browsers.
+	display: -moz-box;              //OLD - Firefox 19- (doesn't work very well) //老版本语法: Firefox (buggy) 
+	display: -ms-flexbox;           //TWEENER - IE 10 //混合版本语法: IE 10
+	display: -webkit-flex;          //NEW - Chrome //新版本语法： Chrome 21+
+	display: flex;                  //NEW, Spec - Opera 12.1, Firefox 20+ //新版本语法： Opera 12.1, Firefox 22+
+}
+
+//弹性布局子元素
+@mixin flex($num: 1) {
+	display: block;					   /*! x5 bug */
+	-webkit-box-flex: $num;            //OLD - iOS 6-, Safari 3.1-6
+	-moz-box-flex: $num;               //OLD - Firefox 19-
+	-webkit-flex: $num;                //Chrome
+	-ms-flex: $num;                    //IE 10
+	flex: $num;                        //NEW, Spec - Opera 12.1, Firefox 20+
+}
+
+//弹性布局的布局方向
+@mixin flex-direc($direction: x) {
+	//水平方向
+	@if ($direction == x) {
+		//09版
+		-webkit-box-orient: horizontal;
+		//12版
+		flex-direction: row;
+	}
+	//垂直方向
+	@if ($direction == y) {
+		//09版
+		-webkit-box-orient: vertical;
+		//12版
+		flex-direction: column;
+	}
+}
+
+//弹性布局重拍列顺序
+@mixin flex-order($num) {
+	-webkit-box-ordinal-group: $num;	//OLD - iOS 6-, Safari 3.1-6
+	-moz-box-ordinal-group: $num;      	//OLD - Firefox 19-
+	-ms-flex-order: $num;              	//TWEENER - IE 10
+	-webkit-order: $num;               	//NEW - Chrome
+	order: $num;                       	//NEW, Spec - Opera 12.1, Firefox 20+
+}
+
+
+/**
+ * 居中 flex版
+ * @param  {[type]} $x:        null          [true 左右居中]
+ * @param  {[type]} $y:        null          [true 垂直居中]
+ * @param  {[type]} $Polyfill: null          [true 使用老版本兼容]
+ */
+@mixin center-flex($x: true, $y: true, $Polyfill: null) {
+	display: flex;
+	@if $x {
+		justify-content: center;
+		@if $Polyfill {
+			//老版本语法
+			-webkit-box-pack: center; 
+			-moz-box-pack: center; 
+			//混合版本语法
+			-ms-flex-pack: center; 
+			//新版本语法
+			-webkit-justify-content: center;
+			justify-content: center;
+		}
+	}
+	@if $y {
+		align-items: center;
+		@if $Polyfill {
+			//老版本语法
+			-webkit-box-align: center; 
+			-moz-box-align: center;
+			//混合版本语法
+			-ms-flex-align: center; 
+			//新版本语法
+			-webkit-align-items: center;
+			align-items: center;
+		}
+	}
+}
+
+
+/**
+ * 居中 数值+定位
+ * @param  {[type]} $width:  null          [当前容器宽度]
+ * @param  {[type]} $height: null          [当前容器高度]
+ */
+@mixin center-posa($width: null, $height: null) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	@if not $width and not $height {
+		transform: translate(-50%, -50%);
+	} @else if $width and $height {
+		width: $width;
+		height: $height;
+		margin: {
+			top: -($width / 2);
+			left: -($height / 2 );
+		}
+	} @else if not $height {
+		width: $width;
+		margin-left: -($width / 2);
+		transform: translate(0, -50%);
+	} @else {
+		height: $height;
+		margin-top: -($height / 2);
+		transform: translate(-50%, 0);
+	}
+}
+
+/**
+ * inline-block center
+ * 让子元素垂直居中  
+ */
+ @mixin center-ib() {
+	font-size: 0;
+	& > *, &:after {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	&:after {
+		content: '';
+		height: 100%;
+		width: 1px;
+	}
+}
+
+
+/**
+ * 使用原生滚动 & 隐藏滚动条
+ */
+@mixin scrollbar() {
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	overflow-x: auto;
+	overflow-y: hidden;
+	&::-webkit-scrollbar {
+		display: none;
+		height: 0;
+		opacity: 0;
+	}
+}
+
+
+/**
+ * 根据宽、高、色值、边框大小 设置一个向右箭头，如：查看更多 >
+ * @param  {[type]} $size  		[宽/高]
+ * @param  {[type]} $color  	[色值]
+ * @param  {[type]} $border  	[数值]
+ */
+@mixin sideArrow($size, $color, $border: 1px) {
+	position: relative;
+	padding-right: rem($size * 2);
+	&:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		right: rem(4);
+		border-top: $border solid $color;
+		border-right: $border solid $color;
+		width: rem($size);
+		height: rem($size);
+		transform: translateY(-50%) rotate(45deg);
+	}
+}
+
+
+/**
+ * 根据字号、行数、行高设置最大高
+ * @param  {[type]} $fontSize:   24            [description]
+ * @param  {[type]} $line:       2             [description]
+ * @param  {[type]} $lineHeight: 1.5           [description]
+ * @return {[type]}              [description]
+ */
+@mixin maxHeight($fontSize: 24, $line: 2, $lineHeight: 1.5) {
+	font-size: rem($fontSize);
+	line-height: $lineHeight;
+	height: rem($fontSize * $line * $lineHeight);
+	overflow: hidden;
+}
+
+/**
+ * css3圆形关闭按钮
+ *   $roundSize					圆形关闭按钮的宽、高
+ *   $lineWidth/lineHeight		里面x的宽/高
+ *   $lineColor 				里面x的色值
+ */
+@mixin icon-close($roundSize: 58, $lineWidth: 32, $lineHeight: 4, $lineColor: #999) {
+	width: rem($roundSize);
+	height: rem($roundSize);
+	border-radius: 100%;
+	transform: rotate(45deg);
+	&:before, &:after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: $lineColor;
+		border-radius: rem(4);
+	}
+	&:before {
+		width: rem($lineWidth);
+		height: rem($lineHeight);
+	}
+	&:after {
+		width: rem($lineHeight);
+		height: rem($lineWidth);
+	}
+}
+
+
+//抢光啦 用于图片层上
+@mixin soldout($size: 96, $fontsize: 22, $opacity: 0.6) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: rem(- $size / 2) 0 0 rem(- $size / 2);
+	width: rem($size);
+	height: rem($size);
+	background: rgba(0, 0, 0, $opacity);
+	border-radius: 100%;
+	color: #fff;
+	line-height: rem($size);
+	text-align: center;
+	&:after {
+		content: '抢光啦';
+		font-style: normal;
+		font-size: rem($fontsize);
+	}
+}
+
+//图片铺满
+@mixin imgFull() {
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+
+//价格
+@mixin rmb($f1, $f2, $c1:null, $c2:null) {
+	font-size: $f2;
+	@if $c1 {
+		color: $c1;
+	}
+	&:before {
+		content: '\00A5';
+		font-size: $f1;
+		@if $c2 {
+			color: $c2;
+		}
+	}
+}
+
+
+//头像
+@mixin headPic($size, $isRound:true, $bg: #f2f2f2) {
+	width: $size;
+	height: $size;
+	background-color: $bg;
+	@if $isRound {
+		border-radius: 100%;
+		overflow: hidden;
+	}
+	@include imgFull;
+}
