@@ -1,19 +1,17 @@
-
-require('./build/before-build.script.js')
+//引入脚本
+require('./build/before-build.script.js');
+var dirVars = require('./build/dir-vars.config.js');
 
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 //postcss config
 var postcssConfig = require('./build/postcss.config.js');
 
-var production = process.env.NODE_ENV === 'production';
-
 module.exports = {
-    devtool: 'eval-source-map',
+    devtool: 'inline-source-map',
     entry: __dirname + "/src/scripts/index.js",
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -36,16 +34,21 @@ module.exports = {
                             loader: 'css-loader',
                             options: {
                                 sourceMap: true,
-                                // minimize: true // css压缩
                             }
                         },
                         {
                             loader: 'postcss-loader',
-                            options: postcssConfig
+                            options: {
+                                plugins: postcssConfig.plugins,
+                                sourceMap: true
+                            }
                         },
                         {
-                            loader: 'sass-loader'
-                        },
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
                     ]
                 })
             },
@@ -55,38 +58,28 @@ module.exports = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 8192,
+                            limit: 1, //开发模式下不转换dataUrl
                             name: 'images/[name].[ext]?v=[hash:8]'
                         }
                     }
                 ]
             },
-            {
-                test: /\.svg$/,
-                loader: 'svg-sprite-loader',
-                include: path.resolve('./src/assets/svg'),
-                options: {
-                    extract: true,
-                    spriteFilename: 'icon-svg.svg'
-                }
-            }   
         ]
     },
     resolve: {
         alias: {
-            'Lib': path.resolve(__dirname, './src/scripts/lib'),
-            'Mod': path.resolve(__dirname, './src/scripts/mod'),
+            'Lib': path.resolve(dirVars.srcDir, './scripts/lib'),
+            'Mod': path.resolve(dirVars.srcDir, './scripts/mod'),
         }
     },
     plugins: [
         new webpack.DefinePlugin({ //环境判断 用于js文件中
-            IS_PRODUCTION: false,
+            __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html'
         }),
-        new ExtractTextPlugin('css/style.css'),
-        new SpriteLoaderPlugin()
+        new ExtractTextPlugin('css/style.css')
     ]
 }

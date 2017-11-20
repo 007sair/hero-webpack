@@ -1,7 +1,7 @@
 {
-  "name": "poplayer",
+  "name": "hero-webpack",
   "version": "1.0.0",
-  "description": "pop layer",
+  "description": "hero by webpack",
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --colors --bail",
@@ -12,13 +12,17 @@
   "author": "longchan",
   "license": "ISC",
   "devDependencies": {
+    "clean-css": "^4.1.9",
     "css-loader": "^0.28.7",
+    "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
-    "postcss": "^6.0.13",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
     "postcss-cssnext": "^3.0.2",
+    "postcss-inline-svg": "^3.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-pxtorem": "^4.0.1",
     "postcss-short": "^4.1.0",
@@ -27,7 +31,6 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
-    "svg-sprite-loader": "^3.4.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3"

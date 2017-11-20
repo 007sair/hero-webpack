@@ -2,18 +2,19 @@
 
 ## postcss-sprites
 
-```
+``` bash
 #install
 cnpm i postcss-sprites postcss -D
+```
 
-#require
+``` js
+//webpack.config.js
 var postcss = require('postcss');
 var sprites = require('postcss-sprites');
 var updateRule = require('postcss-sprites/lib/core').updateRule;
 
-#use
 sprites({
-    spritePath: '../images/', //生成的雪碧图存放路径
+    spritePath: './dist/images/', //生成的雪碧图存放路径
     filterBy: function(image) { //过滤路径为 assets/sprites 下的图片
         if (!/\assets\/sprites/.test(image.url)) {
             return Promise.reject();
@@ -49,14 +50,15 @@ sprites({
 - 优点：支持增量更新，可以按文件夹分组雪碧图
 - 缺点：1倍图不支持`background-size`、2倍图又没有`width`、`height`
 
-```
+``` bash
 #install
 cnpm i postcss-lazysprite -D
+```
 
-#require
+``` js
+//webpack.config.js
 var lazysprite = require('postcss-lazysprite');
 
-#use
 lazysprite({
     imagePath:'./src/assets/sprites', //雪碧图小图所在目录；
     stylesheetInput: './src/css', //CSS 文件所在的目录，一般与gulp.src的路径相关；
@@ -65,8 +67,15 @@ lazysprite({
     smartUpdate: true, //是否启用智能更新机制
     nameSpace: 'icon-', //CSS 的命名空间
 })
-
-#in css
-/* postcss-lazysprite */
-@lazysprite "groupon"; //表示  ./src/assets/sprites/groupon 目录
 ```
+
+``` css
+/* main.scss or css */
+/* postcss-lazysprite */
+@lazysprite "groupon"; /* 表示  ./src/assets/sprites/groupon 目录 */
+```
+
+
+## 参考
+
+- [如何使用 PostCSS 在样式表中处理图片](http://blog.csdn.net/yita90/article/details/51564118)

@@ -4,14 +4,14 @@
 
 这是一个生产雪碧图的webpack插件
 
-```
+``` bash
 #install
 cnpm install webpack-spritesmith -D
+```
 
-#require
+``` js
 var SpritesmithPlugin = require('webpack-spritesmith');
 
-#use
 plugins: [
     new SpritesmithPlugin({
         src: {
@@ -38,7 +38,7 @@ plugins: [
 
 以下为`scss.template.handlebars`模板修改后的内容
 
-```
+``` handlebars
 {
   // Default options
   'functions': true,

@@ -4,7 +4,7 @@
 
 ## sass转换
 
-```
+``` bash
 cnpm install style-loader css-loader sass-loader node-sass --save-dev
 ```
 
@@ -12,8 +12,8 @@ cnpm install style-loader css-loader sass-loader node-sass --save-dev
 - `css-loader`使你能够使用类似`@import`和`url(…)`的方法实现`require()`的功能
 - `style-loader`将所有的计算后的样式加入页面中；
 
-```
-#webpack3
+``` js
+//webpack3
 module: {
     rules: [
         {
@@ -33,7 +33,7 @@ plugins: [
 
 ## postcss
 
-```
+``` bash
 cnpm install postcss-loader autoprefixer --save-dev
 ```
 
@@ -44,14 +44,14 @@ cnpm install postcss-loader autoprefixer --save-dev
 
 参考：[file-loader 和 url-loader](http://blog.csdn.net/qq_38652603/article/details/73835153)
 
-```
+``` bash
 cnpm install url-loader --save-dev
 ```
 
 1. 文件大小小于limit参数，url-loader将会把文件转为DataURL
 2. 文件大小大于limit，url-loader会调用file-loader进行处理，参数也会直接传给file-loader
 
-```
+``` js
 {
     test: /\.(png|jpg|gif)$/,
     use: [
