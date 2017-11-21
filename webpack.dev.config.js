@@ -10,6 +10,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 //postcss config
 var postcssConfig = require('./build/postcss.config.js');
 
+//判断环境
+var TARGET = process.env.npm_lifecycle_event;
+
+console.log(TARGET);
+
 module.exports = {
     devtool: 'inline-source-map',
     entry: __dirname + "/src/scripts/index.js",

@@ -4,9 +4,9 @@
   "description": "hero by webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress --colors --bail",
+    "build": "webpack --colors --bail",
     "dev": "webpack-dev-server --inline --color --config ./webpack.dev.config.js",
-    "dll": "./node_modules/.bin/webpack --progress --colors --config ./webpack-dll.config.js",
+    "dll": "./node_modules/.bin/webpack --colors --config ./webpack-dll.config.js",
     "start": "webpack-dev-server --open --hot --color"
   },
   "author": "longchan",

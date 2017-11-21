@@ -7,6 +7,11 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 var CleanCSS = require('clean-css');
 
+//判断环境
+var TARGET = process.env.npm_lifecycle_event;
+
+console.log(TARGET);
+
 // for compatibility with optimize-css-assets-webpack-plugin
 CleanCSS.process = function (input, opts) {
     var cleanCss;
