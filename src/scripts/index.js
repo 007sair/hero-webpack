@@ -1,12 +1,14 @@
 //style
-require('../css/main.scss');
+import '../css/main.scss';
 
 //scripts
-require('./lib/rem750.js');
-var pop = require('./mod/pop.js');
+import './lib/rem750.js';
 
-console.log(__DEV__);
+if (__DEV__) {
+    console.log('我是测试环境');
+}
 
-// console.log(pop);
-// var svg_clock = require('../assets/svg/clock.svg');
-// require('../assets/svg/kf.svg');
+let arr = [1, 2, 3, 4, 5];
+var double_arr = arr.map(n => n * 2);
+
+console.log(double_arr);

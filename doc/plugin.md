@@ -1,5 +1,47 @@
 # plugin
 
+## clean-css
+
+优化css格式的插件
+
+``` bash
+#install
+cnpm i clean-css optimize-css-assets-webpack-plugin -D
+```
+
+``` js
+//webpack.config.js
+const CleanCSS = require('clean-css');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+// for compatibility with optimize-css-assets-webpack-plugin
+CleanCSS.process = function (input, opts) {
+    var cleanCss;
+    var optsTo = opts.to;
+
+    delete opts.to;
+    cleanCss = new CleanCSS(Object.assign({ returnPromise: true, rebaseTo: optsTo }, opts));
+
+    return cleanCss.minify(input)
+        .then(function (output) {
+            return { css: output.styles };
+        });
+};
+
+module.exports = {
+	plugins: [
+		new OptimizeCssAssetsPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: CleanCSS,
+            cssProcessorOptions: {
+                format: 'keep-breaks',
+            },
+            canPrint: true
+        })
+	]
+}
+```
+
 ## webpack-spritesmith
 
 这是一个生产雪碧图的webpack插件

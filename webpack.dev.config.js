@@ -30,6 +30,7 @@ module.exports = {
     },
     module: {
         rules: [
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
@@ -44,7 +45,7 @@ module.exports = {
                         {
                             loader: 'postcss-loader',
                             options: {
-                                plugins: postcssConfig.plugins,
+                                plugins: postcssConfig,
                                 sourceMap: true
                             }
                         },
@@ -79,7 +80,7 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({ //环境判断 用于js文件中
-            __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+            __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'true'))
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',

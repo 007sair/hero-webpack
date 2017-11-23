@@ -2,23 +2,12 @@
 // 媒体查询 for 640 or 750
 //------------------
 
-//config里没有设置的话就用如下变量
-$output: 640 !default;
-$dpr: false !default;
-
-@import "../config";
+//根据自身页面设置media输出
+$output: 750 !default;
 
 @mixin htmlFont($px) {
 	html {
 		font-size: $px;
-	}
-	@if $dpr {
-		html[data-dpr="2"] {
-			font-size: $px * 2;
-		}
-		html[data-dpr="3"] {
-			font-size: $px * 3;
-		}
 	}
 }
 

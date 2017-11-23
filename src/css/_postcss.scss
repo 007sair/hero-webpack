@@ -1,8 +1,8 @@
 /*
  * PostCSS用法
  * -----------
- * 1. 此文件仅展示postcss用法
- * 2. 由于本文件会经sass编译，所以某些postcss功能在这里会有冲突，甚至报错，请慎用
+ * 1. 本代码仅展示postcss用法
+ * 2. 本文件会经sass编译，所以某些postcss功能在这里会有冲突，甚至报错，请慎用
  */
 
 /*** px2rem的配置 ***/
@@ -13,8 +13,8 @@
 }
 
 /*
- * postcss-cssnext
- * 变量用法
+ * 定义变量
+ * by postcss-cssnext
  */
 :root {
     --red: #f00;
@@ -23,40 +23,30 @@
 }
 
 .var {
-    color: var(--red);
-    font-size: var(--fontSize);
-}
-
-.calc {
+    color: var(--red); //使用变量
     font-size: calc(var(--fontSize) * 2);
 }
- 
+
+
+//自定义选择器
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 :--heading {
     font-weight: bold;
 } 
 
-.sky {
-    margin: 1rem 2px 3em 100%; /*rem2px*/
-    color: blue;
-}
-
-
 /**
- * postcss-cssnext
- * 添加前缀 like autoprefixer
+ * 添加前缀
+ * by postcss-cssnext like autoprefixer
  */
 .flex {
     display: flex;
 }
 
-
 /**
- * postcss-short
- * css简短写法，需注意与sass运算冲突
+ * 简写
+ * by postcss-short 需注意与sass运算冲突
  */
 .short {
-    position: relative;
 	size: 10px;
     -s-position: absolute 1px 2px _ 4px;
     margin: _ 10px; 
@@ -68,3 +58,7 @@
 }
 
 
+
+//----------------------------------------//
+// 以上输出结果 请自行 import "postcss.scss" //
+//----------------------------------------//

@@ -1,13 +1,13 @@
 /*** px2rem的配置 ***/
 @use postcss-pxtorem {
 	rootValue: 75; 		//基数  1rem = 75px
-	replace: true;     //false：不替换当前属性为px，会再生成一条相同的属性，rem的优先级更高
+	replace: true;      //false：不替换当前属性为px，会再生成一条相同的属性，rem的优先级更高
 	propList: ['*'];	//匹配属性列表，*号代表匹配所有属性
+	minPixelValue: 2;   //忽略1px的转换 只转换大于1px的值
 };
 
 /*** Sass工具 ***/
 @import "base/mixin";  //混合器
-@import "base/rem";    //rem、em函数
 
 /*** 样式初始化 ***/
 @import "base/reset";  //样式重置
@@ -41,12 +41,16 @@ article {
 	background-size: 90px;
 }
 
-.sprite-entry-djhw {
-	background: url('../assets/sprites/entry-djhw.png');
+.sprite-icon-nav {
+	size: 42px;
+	background: url('../assets/sprites/icon-nav.png');
+	background-size: 42px;
 }
 
-.sprite-entry-mrsx {
-	background: url('../assets/sprites/entry-mrsx.png');
+.sprite-icon-search {
+	size: 42px;
+	background: url('../assets/sprites/icon-search.png');
+	background-size: 42px;
 }
 
 /* base64 */
@@ -73,4 +77,19 @@ article {
 	size: 60px;
 	background: svg-load('../assets/svg/kf.svg', fill=#000);
 	background-size: cover
+}
+
+/* test mixins */
+.center-parent {
+	position: relative;
+	size: 300px;
+	border: 1px solid #999;
+	background-color: #fff;
+	.child {
+		@include soldout;
+	}
+}
+
+.max-height {
+	@include maxHeight;
 }
