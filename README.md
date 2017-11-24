@@ -37,7 +37,7 @@ npm run build
 - 生成雪碧图
 - 处理`base64`
 - 处理`svg`
-- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
+- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
 
 **关于build后生成的js文件**
 
