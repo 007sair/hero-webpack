@@ -1,4 +1,4 @@
-`hero`的`webpack`版本，原版本见[hero](./hero)
+`hero`的`webpack`版本，原版本见[hero](/hero)
 
 ## 命令
 
