@@ -1,41 +1,47 @@
 # 开发相关
 
+## 命令
+
 ``` bash
 # 开发环境
 npm run dev
 
 # 生产环境
+
+#step1
+npm run dll
+
+#step2
 npm run build
 ```
 
-**开发环境：**
+## 开发环境
 
-开发环境不压缩js、css，没有合并雪碧图，没有转换base64
+区别与`hero`，开发环境没有`dist`目录。
 
-**生产环境：**
+- 不打包压缩`js`、`css`
+- 不处理雪碧图，见`main.scss`写法
+- 不转换`base64`图片
 
-压缩js、css，合并雪碧图、转换base64
+## 生产环境
 
-# webpack 笔记
+**第一次 or 修改过第三方脚本时，先执行dll命令，再进行build打包。**
 
-[webpack中文文档](https://doc.webpack-china.org/)
+### npm run dll
 
-- [loader](./doc/loader.md)
-- [plugin](./doc/plugin.md)
-- [postcss](./doc/postcss.md)
-- [property](./doc/property.md)
-- [webpack-dev-server](./doc/webpack-dev-server.md)
-- [区别开发环境与测试环境](./doc/区别开发环境与测试环境.md)
-- [相关命令](./doc/相关命令.md)
-- [获取多页面入口](./doc/获取多页面入口.md)
+这个命令会构建出第三方的依赖包`vendor.js`，包含`zepto.js`、`rem750.js`。
 
-## 参考
+### npm run build
 
-- [搜罗一切webpack的好文章好工具](https://github.com/webpack-china/awesome-webpack-cn)
-- [webpack多页应用架构系列](https://segmentfault.com/a/1190000006843916)
-- [webpack 教程资源收集](https://segmentfault.com/a/1190000005995267)
-- [Webpack傻瓜式指南](https://zhuanlan.zhihu.com/p/20367175)
-- [Express结合Webpack的全栈自动刷新](https://segmentfault.com/a/1190000004505747)
-- [Webpack——令人困惑的地方](http://blog.csdn.net/a1104258464/article/details/51914450)
-- [webpack 使用优化指南](http://www.cnblogs.com/yumeiqiang/p/5281170.html)
-- [vue-cli中的webpack配置](https://segmentfault.com/a/1190000008779053)
+- 打包、压缩、抽离`js`
+- 生成样式
+- 生成雪碧图
+- 处理`base64`
+- 处理`svg`
+- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
+
+**关于build后生成的js文件**
+
+- `vendor.js`，第三方的js文件
+- `common.js`，抽离出重复使用的模块
+- `index.js`，业务模块，当前页面使用到的功能
