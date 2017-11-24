@@ -1,23 +1,23 @@
-//引入脚本
-require('./build/before-build.script.js');
-var dirVars = require('./build/dir-vars.config.js');
+/**
+ * development
+ */
+
+require('./build/del.js');
 
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-//postcss config
-var postcssConfig = require('./build/postcss.config.js');
-
-//判断环境
 var TARGET = process.env.npm_lifecycle_event;
 
-console.log(TARGET);
+var dirVars = require('./build/dir-vars.config.js');
+var _getEntry = require('./build/entry.config.js');
+var _resolve = require('./build/resolve.config.js');
+var _module = require('./build/module.config.js');
 
-module.exports = {
+var config = {
     devtool: 'inline-source-map',
-    entry: __dirname + "/src/scripts/index.js",
+    entry: _getEntry(),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "scripts/bundle.js",
@@ -28,64 +28,19 @@ module.exports = {
         port: 8099,
         contentBase: "./dist/",  //本地服务器所加载的页面所在的目录
     },
-    module: {
-        rules: [
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true,
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: postcssConfig,
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        }
-                    ]
-                })
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 1, //开发模式下不转换dataUrl
-                            name: 'images/[name].[ext]?v=[hash:8]'
-                        }
-                    }
-                ]
-            },
-        ]
-    },
-    resolve: {
-        alias: {
-            'Lib': path.resolve(dirVars.srcDir, './scripts/lib'),
-            'Mod': path.resolve(dirVars.srcDir, './scripts/mod'),
-        }
-    },
+    module: _module,
+    resolve: _resolve,
     plugins: [
         new webpack.DefinePlugin({ //环境判断 用于js文件中
             __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'true'))
         }),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './src/index.html'
-        }),
         new ExtractTextPlugin('css/style.css')
     ]
-}
+};
+
+//set pages
+config.plugins = config.plugins.concat(
+    require('./build/page.js')
+);
+
+module.exports = config;

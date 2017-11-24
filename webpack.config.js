@@ -1,80 +1,28 @@
-var dirVars = require('./build/dir-vars.config.js');
+/**
+ * production
+ */
+
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
-//postcss config
-var postcssConfig = require('./build/postcss.config.js');
+var dirVars = require('./build/dir-vars.config.js');
+var _getEntry = require('./build/entry.config.js');
+var _resolve = require('./build/resolve.config.js');
+var _module = require('./build/module.config.js');
 
-//获取多页面的每个入口文件，用于配置中的entry
-var fs = require('fs');
-function getEntry() {
-    var jsPath = path.resolve(dirVars.srcDir, 'scripts');
-    var dirs = fs.readdirSync(jsPath);
-    var matchs = [], files = {};
-    dirs.forEach(function (item) {
-        matchs = item.match(/(.+)\.js$/);
-        if (matchs) {
-            files[matchs[1]] = path.resolve(dirVars.srcDir, 'scripts', item);
-        }
-    });
-    return files;
-}
-
-module.exports = {
-    entry: getEntry(),
+var config = {
+    entry: _getEntry(),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: "scripts/[name].js?v=[chunkhash:10]",
+        filename: "scripts/[name].min.js?v=[chunkhash:10]",
         publicPath: "/",
-        chunkFilename: "scripts/[name].js"
+        chunkFilename: "scripts/[name].min.js"
     },
-    module: {
-        rules: [
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
-            {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader'
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: postcssConfig
-                            }
-                        },
-                        {
-                            loader: 'sass-loader'
-                        },
-                    ]
-                })
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: 'images/[name].[ext]?v=[hash:8]'
-                        }
-                    }
-                ]
-            }
-        ]
-    },
-    resolve: {
-        alias: {
-            'Lib': path.resolve(__dirname, './src/scripts/lib'),
-            'Mod': path.resolve(__dirname, './src/scripts/mod'),
-        }
-    },
+    module: _module,
+    resolve: _resolve,
     plugins: [
         new webpack.DefinePlugin({
             __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
@@ -87,7 +35,7 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(), // 配合CLI的--bail，一出error就终止webpack的编译进程
         new ExtractTextPlugin('css/style.css'),
         new HtmlWebpackIncludeAssetsPlugin({
-            assets: ['scripts/vendor.js'],
+            assets: ['scripts/vendor.min.js'],
             files: '*.html',
             append: false,
             hash: true
@@ -100,10 +48,12 @@ module.exports = {
             context: __dirname,
             manifest: require(path.resolve(__dirname, "manifest.json")),
         }),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: './src/index.html',
-            chunks: ['common', 'index']
-        })
     ]
-}
+};
+
+//set pages
+config.plugins = config.plugins.concat(
+    require('./build/page.js')
+);
+
+module.exports = config;

@@ -42,6 +42,6 @@ npm run build
 
 **关于build后生成的js文件**
 
-- `vendor.js`，第三方的js文件
-- `common.js`，抽离出重复使用的模块
-- `index.js`，业务模块，当前页面使用到的功能
+- `vendor.js`，第三方库的打包文件
+- `common.js`，抽离出重复使用的模块文件
+- `index.js`，业务模块打包后的文件

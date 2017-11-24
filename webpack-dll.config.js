@@ -2,7 +2,7 @@
  * 公共库 dll 打包
  */
 
-require('./build/before-build.script.js')
+require('./build/del.js')
 
 var webpack = require('webpack');
 var path = require('path');
@@ -17,7 +17,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(dirVars.rootDir, "dist/scripts/"),
-        filename: '[name].js',
+        filename: '[name].min.js',
         library: '[name]_library'
     },
     plugins: [

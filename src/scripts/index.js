@@ -1,8 +1,8 @@
 //style
-import '../css/main.scss';
+import 'CSS/main.scss';
 
 //scripts
-import './lib/rem750.js';
+import 'Lib/rem750.js';
 
 if (__DEV__) {
     console.log('我是测试环境');
