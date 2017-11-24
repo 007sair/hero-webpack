@@ -1,4 +1,4 @@
-# 开发相关
+`hero`的`webpack`版本，原版本见[hero](./hero)
 
 ## 命令
 
@@ -16,7 +16,7 @@ npm run build
 
 ## 开发环境
 
-区别与`hero`，`hero-webpack`的开发环境没有`dist`目录。
+区别于`hero`，`hero-webpack`的开发环境没有`dist`目录。
 
 - 不打包压缩`js`、`css`
 - 不处理雪碧图，见`main.scss`写法
