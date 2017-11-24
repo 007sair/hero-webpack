@@ -7,7 +7,6 @@
 npm run dev
 
 # 生产环境
-
 #step1
 npm run dll
 
@@ -17,7 +16,7 @@ npm run build
 
 ## 开发环境
 
-区别与`hero`，开发环境没有`dist`目录。
+区别与`hero`，`hero-webpack`的开发环境没有`dist`目录。
 
 - 不打包压缩`js`、`css`
 - 不处理雪碧图，见`main.scss`写法
@@ -27,11 +26,11 @@ npm run build
 
 **第一次 or 修改过第三方脚本时，先执行dll命令，再进行build打包。**
 
-### npm run dll
+### `npm run dll`
 
-这个命令会构建出第三方的依赖包`vendor.js`，包含`zepto.js`、`rem750.js`。
+这个命令会构建出第三方库的依赖包`vendor.js`，包含`zepto.js`、`rem750.js`。
 
-### npm run build
+### `npm run build`
 
 - 打包、压缩、抽离`js`
 - 生成样式
