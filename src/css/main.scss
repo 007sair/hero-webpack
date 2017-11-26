@@ -70,13 +70,13 @@ article {
 .svg-news {
 	size: 60px;
 	background: svg-load('../assets/svg/news.svg', fill=blue);
-	background-size: cover
+	background-size: cover;
 }
 
 .svg-kf {
 	size: 60px;
 	background: svg-load('../assets/svg/kf.svg', fill=#000);
-	background-size: cover
+	background-size: cover;
 }
 
 /* test mixins */

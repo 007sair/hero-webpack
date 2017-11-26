@@ -9,6 +9,6 @@ if (__DEV__) {
 }
 
 let arr = [1, 2, 3, 4, 5];
-var double_arr = arr.map(n => n * 2);
+let double_arr = arr.map(n => n * 2);
 
 console.log(double_arr);

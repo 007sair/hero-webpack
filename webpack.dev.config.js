@@ -26,6 +26,7 @@ var config = {
     devServer: {
         inline: true,
         port: 8099,
+        host: '0.0.0.0', //局域网访问
         contentBase: "./dist/",  //本地服务器所加载的页面所在的目录
     },
     module: _module,
