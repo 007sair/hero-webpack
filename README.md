@@ -28,7 +28,7 @@ npm run build
 
 ### `npm run dll`
 
-这个命令会构建出第三方库的依赖包`vendor.js`，包含`zepto.js`、`rem750.js`。
+这个命令会构建出第三方库的依赖包`vendor.js`，包含`zepto.js`、`rem750.js`。
 
 ### `npm run build`
 
@@ -37,9 +37,9 @@ npm run build
 - 生成雪碧图
 - 处理`base64`
 - 处理`svg`
-- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
+- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
 
-**关于build后生成的js文件**
+**关于build后生成的js文件**
 
 - `vendor.js`，第三方库的打包文件
 - `common.js`，抽离出重复使用的模块文件
