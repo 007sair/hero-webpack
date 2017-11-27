@@ -1,5 +1,6 @@
 //style
 import 'CSS/main.scss';
+import 'CSS/base/_media.scss'; //必须引入，具体原因看readme
 
 //scripts
 import 'Lib/rem750.js';

@@ -44,3 +44,10 @@ npm run build
 - `vendor.js`，第三方库的打包文件
 - `common.js`，抽离出重复使用的模块文件
 - `index.js`，业务模块打包后的文件
+
+### 关于`index.js`中引用`base/_media.scss'`
+
+`media.scss`如果从`main.scss`中引入(`@import "base/media.scss"`)，会被转换成rem单位，并非我们想要的结果。
+所以通过webpack的方式引入再打包，这样就绕开了`postcss-pxtorem`；
+
+bug：暂时不明白`postcss-pxtorem`中`ignore`功能为什么在媒体查询中不生效。
