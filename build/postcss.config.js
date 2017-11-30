@@ -27,6 +27,7 @@ var config = [
     require('postcss-inline-svg'), //need postcss-svgo
     require('cssnano')({ //include postcss-svgo
         preset: 'default',
+        safe: true //防止z-index被重新计算
     })
 ];
 
