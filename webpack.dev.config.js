@@ -20,8 +20,9 @@ var config = {
     entry: _getEntry(),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: "scripts/bundle.js",
-        publicPath: "/"
+        filename: "scripts/[name].js",
+        publicPath: "/",
+        chunkFilename: "scripts/[name].js"
     },
     devServer: {
         inline: true,

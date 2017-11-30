@@ -9,5 +9,10 @@ module.exports = [
         filename: 'index.html',
         template: './src/index.html',
         chunks: ['common', 'index']
+    }),
+    new HtmlWebpackPlugin({ //page1
+        filename: 'page2.html',
+        template: './src/page2.html',
+        chunks: ['common', 'page2']
     })
 ];
