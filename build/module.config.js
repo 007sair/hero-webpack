@@ -6,7 +6,7 @@ module.exports = {
     rules: [
         { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
         {
-            test: /\.scss$/,
+            test: /\.(css|scss)$/,
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
@@ -38,7 +38,7 @@ module.exports = {
                 {
                     loader: 'url-loader',
                     options: {
-                        limit: 1, //开发模式下不转换dataUrl
+                        limit: 4096,
                         name: 'images/[name].[ext]?v=[hash:8]'
                     }
                 }

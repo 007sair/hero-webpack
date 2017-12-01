@@ -6,5 +6,6 @@ module.exports = {
         'Lib': path.resolve(dirVars.srcDir, './scripts/lib'),
         'Mod': path.resolve(dirVars.srcDir, './scripts/mod'),
         'CSS': path.resolve(dirVars.srcDir, './css')
-    }
+    },
+    extensions: ['.js', '.css', '.scss'],
 }

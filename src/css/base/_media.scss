@@ -7,7 +7,7 @@ $output: 750 !default;
 
 @mixin htmlFont($px) {
 	html {
-		font-size: $px;
+		font-size: $px / 1px * 1PX; // for postcss-pxtorem ignored
 	}
 }
 

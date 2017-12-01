@@ -14,6 +14,7 @@ var dirVars = require('./build/dir-vars.config.js');
 var _getEntry = require('./build/entry.config.js');
 var _resolve = require('./build/resolve.config.js');
 var _module = require('./build/module.config.js');
+var _cleancss = require('./build/cleancss.config.js');
 
 var config = {
     devtool: 'inline-source-map',
@@ -36,13 +37,14 @@ var config = {
         new webpack.DefinePlugin({ //环境判断 用于js文件中
             __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'true'))
         }),
-        new ExtractTextPlugin('css/style.css')
+        new ExtractTextPlugin('css/style.css'),
     ]
 };
 
 //set pages
 config.plugins = config.plugins.concat(
-    require('./build/page.js')
+    require('./build/page.js'),
+    _cleancss()
 );
 
 module.exports = config;

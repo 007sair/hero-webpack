@@ -3,28 +3,31 @@
 ## 命令
 
 ``` bash
-# 开发环境
+#开发环境
 npm run dev
 
-# 生产环境
+#生产环境
 #step1
 npm run dll
 
 #step2
 npm run build
+
+#全部打包 step1+step2
+npm run all
 ```
 
 ## 开发环境
 
 区别于`hero`，`hero-webpack`的开发环境没有`dist`目录。
 
-- 不打包压缩`js`、`css`
-- 不处理雪碧图，见`main.scss`写法
-- 不转换`base64`图片
+- `js`与`css`不打包压缩，通过内存读取，更快。
+- 不处理雪碧图，见`main.scss`写法。
+- svg图标通过[iconfont+](http://www.iconfont.cn/)的方式载入，本脚手架不再对齐做处理。
 
 ## 生产环境
 
-**第一次 or 修改过第三方脚本时，先执行dll命令，再进行build打包。**
+**第一次 or 修改过第三方脚本时，先执行dll命令，再进行build打包，或者`npm run all`**
 
 ### `npm run dll`
 
@@ -32,22 +35,13 @@ npm run build
 
 ### `npm run build`
 
-- 打包、压缩、抽离`js`
-- 生成样式
-- 生成雪碧图
-- 处理`base64`
-- 处理`svg`
-- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）
+- 打包、压缩、抽离`js`。
+- 生成压缩后的样式。
+- 生成雪碧图并处理`base64`。
+- 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）。
 
 **关于build后生成的js文件**
 
 - `vendor.js`，第三方库的打包文件
 - `common.js`，抽离出重复使用的模块文件
 - `index.js`，业务模块打包后的文件
-
-### 关于`index.js`中引用`base/_media.scss'`
-
-`media.scss`如果从`main.scss`中引入(`@import "base/media.scss"`)，会被转换成rem单位，并非我们想要的结果。
-所以通过webpack的方式引入再打包，这样就绕开了`postcss-pxtorem`；
-
-bug：暂时不明白`postcss-pxtorem`中`ignore`功能为什么在媒体查询中不生效。

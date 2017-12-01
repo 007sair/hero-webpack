@@ -2,16 +2,17 @@
  * production
  */
 
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var dirVars = require('./build/dir-vars.config.js');
 var _getEntry = require('./build/entry.config.js');
 var _resolve = require('./build/resolve.config.js');
 var _module = require('./build/module.config.js');
+var _cleancss = require('./build/cleancss.config.js');
 
 var config = {
     entry: _getEntry(),
@@ -47,13 +48,14 @@ var config = {
         new webpack.DllReferencePlugin({
             context: __dirname,
             manifest: require(path.resolve(__dirname, "manifest.json")),
-        }),
+        })
     ]
 };
 
 //set pages
 config.plugins = config.plugins.concat(
-    require('./build/page.js')
+    require('./build/page.js'),
+    _cleancss()
 );
 
 module.exports = config;

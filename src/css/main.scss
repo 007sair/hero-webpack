@@ -11,84 +11,15 @@
 
 /*** 样式初始化 ***/
 @import "base/reset";  //样式重置
+@import "base/media";  //媒体查询
+
+@import "var";		   //变量
 @import "common";	   //公共样式
 
-/*** 页面样式从这里开始 ***/
-article {
-	padding: 15px;
-	font-size: 28px;
-}
+/*** 页面css入口 ***/
 
-[class^=sprite], 
-[class^=b64],
-[class^=svg] {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 20px;
-}
+//page1
+@import "pages/page1";
 
-/* sprites */
-.sprite-entry-cztj {
-	size: 90px;
-	background: url('../assets/sprites/entry-cztj.png');
-	background-size: 90px;
-}
-
-.sprite-entry-my {
-	size: 90px;
-	background: url('../assets/sprites/entry-my.png');
-	background-size: 90px;
-}
-
-.sprite-icon-nav {
-	size: 42px;
-	background: url('../assets/sprites/icon-nav.png');
-	background-size: 42px;
-}
-
-.sprite-icon-search {
-	size: 42px;
-	background: url('../assets/sprites/icon-search.png');
-	background-size: 42px;
-}
-
-/* base64 */
-.b64-cancel {
-	size: 24px;
-	background: url('../assets/base64/icon-cancel.png') no-repeat;
-	background-size: 24px;
-}
-
-.b64-arr-rt {
-	size: 12px 22px;
-	background: url('../assets/base64/icon-arr-rt.png') no-repeat;
-	background-size: 12px 22px;
-}
-
-/* svg */
-.svg-news {
-	size: 60px;
-	background: svg-load('../assets/svg/news.svg', fill=blue);
-	background-size: cover;
-}
-
-.svg-kf {
-	size: 60px;
-	background: svg-load('../assets/svg/kf.svg', fill=#000);
-	background-size: cover;
-}
-
-/* test mixins */
-.center-parent {
-	position: relative;
-	size: 300px;
-	border: 1px solid #999;
-	background-color: #fff;
-	.child {
-		@include soldout;
-	}
-}
-
-.max-height {
-	@include maxHeight;
-}
+//page2
+@import "pages/page2";

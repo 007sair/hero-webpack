@@ -23,27 +23,24 @@ var config = [
         spacing: {
             skip: '_'
         }
-    }),
-    require('postcss-inline-svg'), //need postcss-svgo
-    require('cssnano')({ //include postcss-svgo
-        preset: 'default',
-        safe: true //防止z-index被重新计算
     })
 ];
 
 if (TARGET === 'build') {
-    config.push(sprites({
-        spritePath: './dist/images/', //生成的雪碧图存放路径
-        spritesmith: {
-            padding: 15
-        },
-        filterBy(image) { //过滤路径为 assets/sprites 下的图片
-            if (!/\assets\/sprites/.test(image.url)) {
-                return Promise.reject();
+    config = config.concat([
+        sprites({
+            spritePath: './dist/images/', //生成的雪碧图存放路径
+            spritesmith: {
+                padding: 15
+            },
+            filterBy(image) { //过滤路径为 assets/sprites 下的图片
+                if (!/\assets\/sprites/.test(image.url)) {
+                    return Promise.reject();
+                }
+                return Promise.resolve();
             }
-            return Promise.resolve();
-        }
-    }))
+        })
+    ])
 }
 
 module.exports = config;
