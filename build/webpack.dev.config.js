@@ -2,7 +2,7 @@
  * development
  */
 
-require('./build/del.js');
+require('./script/del-dist.js');
 
 var path = require('path');
 var webpack = require('webpack');
@@ -10,17 +10,16 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var TARGET = process.env.npm_lifecycle_event;
 
-var dirVars = require('./build/dir-vars.config.js');
-var _getEntry = require('./build/entry.config.js');
-var _resolve = require('./build/resolve.config.js');
-var _module = require('./build/module.config.js');
-var _cleancss = require('./build/cleancss.config.js');
+var dirVars = require('./config/dir-vars.config.js');
+var _getEntry = require('./config/entry.config.js');
+var _resolve = require('./config/resolve.config.js');
+var _module = require('./config/module.config.js');
 
 var config = {
     devtool: 'inline-source-map',
     entry: _getEntry(),
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(dirVars.rootDir, 'dist'),
         filename: "scripts/[name].js",
         publicPath: "/",
         chunkFilename: "scripts/[name].js"
@@ -29,7 +28,7 @@ var config = {
         inline: true,
         port: 8099,
         host: '0.0.0.0', //局域网访问
-        contentBase: "./dist/",  //本地服务器所加载的页面所在的目录
+        contentBase: "../dist/",  //本地服务器所加载的页面所在的目录
     },
     module: _module,
     resolve: _resolve,
@@ -43,8 +42,7 @@ var config = {
 
 //set pages
 config.plugins = config.plugins.concat(
-    require('./build/page.js'),
-    _cleancss()
+    require('./config/page.config.js'),
 );
 
 module.exports = config;

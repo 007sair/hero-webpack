@@ -23,7 +23,7 @@ npm run all
 
 - `js`与`css`不打包压缩，通过内存读取，更快。
 - 不处理雪碧图，见`main.scss`写法。
-- svg图标通过[iconfont+](http://www.iconfont.cn/)的方式载入，本脚手架不再对齐做处理。
+- svg图标通过[iconfont+](http://www.iconfont.cn/)的方式载入，本脚手架不再做处理。
 
 ## 生产环境
 
@@ -40,7 +40,7 @@ npm run all
 - 生成雪碧图并处理`base64`。
 - 给`.html`文件自动载入样式、载入3个js文件（`vendor.js`，`common.js`，`index.js`）。
 
-**关于build后生成的js文件**
+关于build后生成的js文件：
 
 - `vendor.js`，第三方库的打包文件
 - `common.js`，抽离出重复使用的模块文件

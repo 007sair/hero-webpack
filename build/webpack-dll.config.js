@@ -2,11 +2,11 @@
  * 公共库 dll 打包
  */
 
-require('./build/del.js')
+require('./script/del-dll.js');
 
 var webpack = require('webpack');
 var path = require('path');
-var dirVars = require('./build/dir-vars.config.js');
+var dirVars = require('./config/dir-vars.config.js');
 
 module.exports = {
     entry: {
@@ -29,7 +29,7 @@ module.exports = {
         new webpack.DllPlugin({
             path: path.resolve(dirVars.rootDir, "manifest.json"),
             name: '[name]_library',
-            context: __dirname
+            context: dirVars.rootDir
         })
     ]
 };

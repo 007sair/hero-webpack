@@ -4,6 +4,8 @@ const postuse = require('postcss-use');
 const postshort = require('postcss-short');
 const cssnext = require("postcss-cssnext"); //http://cssnext.io/features/
 const sprites = require('postcss-sprites');
+const csso = require('postcss-csso');
+const stylefmt = require('stylefmt');
 
 const TARGET = process.env.npm_lifecycle_event; //判断环境
 
@@ -23,8 +25,15 @@ var config = [
         spacing: {
             skip: '_'
         }
-    })
+    }),
+    csso({
+        restructure: false
+    }),
 ];
+
+if (TARGET === 'dev') {
+    config.push(stylefmt)
+}
 
 if (TARGET === 'build') {
     config = config.concat([
