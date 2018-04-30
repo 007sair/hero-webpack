@@ -23,8 +23,8 @@
 }
 
 .var {
-    color: var(--red); //使用变量
     font-size: calc(var(--fontSize) * 2);
+    color: var(--red); //使用变量
 }
 
 

@@ -2,6 +2,7 @@
  * 公共库 dll 打包
  */
 
+require('./script/del-dist.js');
 require('./script/del-dll.js');
 
 var webpack = require('webpack');
@@ -11,12 +12,13 @@ var dirVars = require('./config/dir-vars.config.js');
 module.exports = {
     entry: {
         vendor: [
-            path.resolve(dirVars.rootDir, 'src/scripts/lib/zepto.js'),
-            path.resolve(dirVars.rootDir, 'src/scripts/lib/rem750.js')
+            'babel-polyfill',
+            path.resolve(dirVars.rootDir, 'src/js/lib/zepto.js'),
+            path.resolve(dirVars.rootDir, 'src/js/lib/rem750.js')
         ],
     },
     output: {
-        path: path.resolve(dirVars.rootDir, "dist/scripts/"),
+        path: path.resolve(dirVars.rootDir, "dist/js/"),
         filename: '[name].min.js',
         library: '[name]_library'
     },

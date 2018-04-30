@@ -10,9 +10,4 @@ module.exports = [
         template: './src/index.html',
         chunks: ['common', 'index']
     }),
-    new HtmlWebpackPlugin({ //page2
-        filename: 'page2.html',
-        template: './src/page2.html',
-        chunks: ['common', 'page2']
-    })
 ];

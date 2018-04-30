@@ -1,0 +1,1 @@
+console.log('load a2.js');

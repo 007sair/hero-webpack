@@ -2,26 +2,75 @@
  * production
  */
 
+// require('./script/del-dist.js');
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+// const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 var dirVars = require('./config/dir-vars.config.js');
 var _getEntry = require('./config/entry.config.js');
 var _resolve = require('./config/resolve.config.js');
-var _module = require('./config/module.config.js');
+var postcssConfig = require('./config/postcss.config.js');
 
 var config = {
     entry: _getEntry(),
     output: {
         path: path.resolve(dirVars.rootDir, "dist"),
-        filename: "scripts/[name].min.js?v=[chunkhash:10]",
-        publicPath: "/",
-        chunkFilename: "scripts/[name].min.js"
+        filename: "js/[name].min.js?v=[chunkhash:10]",
+        // publicPath: "/",
+        chunkFilename: "js/[name].min.js"
     },
-    module: _module,
+    module: {
+        rules: [
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+            {
+                test: /\.(css|scss)$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: postcssConfig,
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                })
+            },
+            {
+                test: /\.(png|jpg|gif|jpeg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 4096,
+                            name: 'images/[name].[ext]?v=[hash:8]'
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.html$/,
+                use: ['html-loader']
+            },
+        ]
+    },
     resolve: _resolve,
     plugins: [
         new webpack.DefinePlugin({
@@ -40,14 +89,14 @@ var config = {
             append: false,
             hash: true
         }),
-        new CommonsChunkPlugin({
-            name: 'common',
-            minChunks: 2
-        }),
         new webpack.DllReferencePlugin({
             context: dirVars.rootDir,
             manifest: require(path.resolve(dirVars.rootDir, "manifest.json")),
-        })
+        }),
+        // new CommonsChunkPlugin({
+        //     name: 'common',
+        //     minChunks: 2
+        // }),
     ]
 };
 

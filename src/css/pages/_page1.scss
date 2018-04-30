@@ -2,9 +2,9 @@
  * page1 style
  */
 
-article {
+section {
     padding: 15px;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 [class^=sprite],
@@ -57,4 +57,12 @@ article {
 
 .z3 {
     z-index: 1000;
+}
+
+button {
+    margin: 10px;
+    padding: 15px 20px;
+    border-radius: 3PX;
+    border: 2px solid #a2a2a2;
+    background-color: #fff;
 }

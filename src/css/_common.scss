@@ -1,23 +1,7 @@
 /* 公共样式 */
-.fl {
-    float: left;
-}
-
-.fr {
-    float: right;
-}
-
-.clearfix {
-    @include clearfix;
-}
-
 .sticky {
     position: sticky !important;
     position: -webkit-sticky !important;
-}
-
-.hide {
-    display: none;
 }
 
 //解决移动端div点击事件不可点的bug
@@ -29,3 +13,50 @@
     width: 1em;
     height: 1em;
 }
+
+/**** class tool ****/
+
+/* layout */
+.fl {float: left}
+.fr {float: right}
+
+.hide{display: none !important}
+.clearfix {@include clearfix}
+
+/* font */
+.f10 {font-size: 20px}
+.f12 {font-size: 24px}
+.f14 {font-size: 28px}
+.f16 {font-size: 32px}
+.f18 {font-size: 36px}
+
+/* color */
+.c-red{color: #d66868}
+.c-gray-d{color: #333}
+.c-gray-m{color: #666}
+.c-gray-l{color: #999}
+
+/* space */
+.mt10 {margin-top: 10px}
+.mt20 {margin-top: 20px}
+
+.mb10 {margin-bottom: 10px}
+.mb20 {margin-bottom: 20px}
+
+.mx10 {margin: 0 10px}
+.mx20 {margin: 0 20px}
+
+.my10 {margin: 10px 0}
+.my20 {margin: 20px 0}
+
+.pt10 {padding-top: 10px}
+.pt20 {padding-top: 20px}
+
+.pb10 {padding-bottom: 10px}
+.pb20 {padding-bottom: 20px}
+
+.px10 {padding: 0 10px}
+.px20 {padding: 0 20px}
+
+.py10 {padding: 10px 0}
+.py20 {padding: 20px 0}

@@ -6,6 +6,6 @@ rimraf('manifest.json', fs, function () {
     console.log('manifest.json已删除');
 });
 
-rimraf('dist/scripts/vendor.min.js', fs, function () {
+rimraf('dist/js/vendor.min.js', fs, function () {
     console.log('vendor.min.js已删除');
 });
