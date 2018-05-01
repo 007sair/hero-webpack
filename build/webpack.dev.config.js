@@ -19,9 +19,9 @@ var config = {
     entry: _getEntry(),
     output: {
         path: path.resolve(dirVars.rootDir, 'dist'),
-        filename: "scripts/[name].js",
+        filename: "js/[name].js",
         publicPath: "/",
-        chunkFilename: "scripts/[name].js"
+        chunkFilename: "js/[name].js"
     },
     devServer: {
         inline: true,

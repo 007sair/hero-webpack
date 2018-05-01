@@ -20,7 +20,7 @@ var config = {
     output: {
         path: path.resolve(dirVars.rootDir, "dist"),
         filename: "js/[name].min.js?v=[chunkhash:10]",
-        // publicPath: "/",
+        publicPath: "/", // 如果不写，生成的资源路径为相对路径
         chunkFilename: "js/[name].min.js"
     },
     module: {
@@ -84,7 +84,7 @@ var config = {
         new webpack.NoEmitOnErrorsPlugin(), // 配合CLI的--bail，一出error就终止webpack的编译进程
         new ExtractTextPlugin('css/style.css?v=[chunkhash:10]'),
         new HtmlWebpackIncludeAssetsPlugin({
-            assets: ['scripts/vendor.min.js'],
+            assets: ['js/vendor.min.js'],
             files: '*.html',
             append: false,
             hash: true

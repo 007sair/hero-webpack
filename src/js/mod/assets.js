@@ -12,5 +12,6 @@ import '@/assets/img/banner.jpg'
 // ali iconfont svg js
 // document.body.appendChild(function () {
 //     var script = document.createElement('script');
-//     script.src = '//at.alicdn.com/t/font_489323_b47ckfz5eb9ms4i.js';
+//     script.src = '//at.alicdn.com/t/font_648726_n3ax7js8rwndbo6r.js';
+//     return script
 // }());
