@@ -2,19 +2,20 @@
  * 公共库 dll 打包
  */
 
-require('./script/del-dist.js');
-require('./script/del-dll.js');
+require('./script/del-dll.js')
+require('./script/del-dist.js')
 
-var webpack = require('webpack');
-var path = require('path');
-var dirVars = require('./config/dir-vars.config.js');
+const webpack = require('webpack')
+const path = require('path')
+const dirVars = require('./config/dir-vars.config.js')
 
 module.exports = {
     entry: {
-        vendor: [
+        vendor: [ // 指定要抽离的模块
+            'amfe-flexible',
             'babel-polyfill',
-            path.resolve(dirVars.rootDir, 'src/js/lib/zepto.js'),
-            path.resolve(dirVars.rootDir, 'src/js/lib/rem750.js')
+            // 'vue',
+            'axios'
         ],
     },
     output: {
@@ -34,4 +35,4 @@ module.exports = {
             context: dirVars.rootDir
         })
     ]
-};
+}

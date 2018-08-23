@@ -37,7 +37,7 @@
     } else {
         root.mu = factory(root);
     }
-}(this, function () {
+}(window, function () {
 
     var pre = 'mu_modal',
         index = 0,
@@ -106,7 +106,7 @@
             _wrap.className = getBEM('wrap');
             _wrap.setAttribute('type', config.type);
 
-            q('.' + getBEM('wrap'), true).forEach(function (_wrap) {
+            [].slice.call(q('.' + getBEM('wrap'), true)).forEach(function (_wrap) {
                 var type = _wrap.getAttribute('type');
                 var index = _wrap.id.split(pre + '-')[1];
                 if (type === config.type) { // 同类型弹层只允许出现一个
@@ -200,7 +200,7 @@
 
             if (config.btn) {
                 var btns = q('.' + getBEM('alert_btns') + ' ' + 'span', true);
-                btns.forEach(function (btn) {
+                [].slice.call(btns).forEach(function (btn) {
                     btn.addEventListener('click', function () {
                         var type = this.getAttribute('type');
                         if (type == 0) {
@@ -260,13 +260,35 @@
         }
     }
 
-    const mu = {
+    var mu = {
 
         v: '1.0.0',
+
+        // 基础api
         open: function (options) {
             var mu = new MU(options || {});
             return mu.index
         },
+
+        // toast提示简写
+        toast: function (msg, time) {
+            this.open({
+                type: 'toast',
+                content: msg,
+                time: time || 1.5
+            })
+        },
+
+        // 加载
+        loader: function (msg) {
+            msg = msg || '加载中..'
+            return this.open({
+                type: "loading",
+                mask: false,
+                content: msg 
+            })
+        },
+
         close: function (index) {
             var el = getElem(index);
             if (!el) return;
@@ -285,10 +307,11 @@
                 delete _mu[index]
             }, _delay);
         },
+        
         closeAll: function () {
             var wraps = q('.' + getBEM('wrap'), true);
             if (wraps.length) {
-                wraps.forEach(function (wrap) {
+                [].slice.call(wraps).forEach(function (wrap) {
                     removeNode(_wrap)
                 })
             }

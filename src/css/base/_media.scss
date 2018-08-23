@@ -1,18 +1,17 @@
 //------------------
-// 媒体查询 for 640 or 750
+// 特定机型的媒体查询
+// 针对页面被重置了html的font-size后会闪跳的问题，设置特定机型的媒体查询
 //------------------
 
-//根据自身页面设置media输出
+// 根据自身页面设置media输出
 $output: 750 !default;
 
-@mixin htmlFont($px) {
-	html {
-		font-size: $px / 1px * 1PX; // for postcss-pxtorem ignored
-	}
-}
+// 是否遍历所以机型的媒体查询
+$is_each: false !default;
 
-//根据屏幕尺寸转换字体值!
-@function conver2px($clientWidth) {
+// 根据屏幕尺寸和定义的输出变量
+// 设置当前html的fontSize
+@function screen2fontSize($clientWidth) {
 	@if $output == 640 {
 		@return (20 * (($clientWidth + 1) / 320));
 	}
@@ -36,39 +35,27 @@ $output: 750 !default;
  * 640px显示屏样式
  * 640px以上显示屏样式
  */
-$screens: 212px, 319px, 359px, 383px, 399px, 414px, 423px, 479px, 539px, 639px, 640px;
-@each $width in $screens {
-	@media screen and (min-width:$width) {
-		@include htmlFont(conver2px($width));
-	}
-}
+$screens: 212PX, 319PX, 359PX, 383PX, 399PX, 414PX, 423PX, 479PX, 539PX, 639PX, 640PX;
 
-//兼容iphone5
-@media only screen and (min-device-width:320px) and (max-device-width:568px) {
-	@if $output == 640 {
-		@include htmlFont(20px);
+html {
+	@include iphone5() {
+		font-size: screen2fontSize(320PX);
 	}
-	@if $output == 750 {
-		@include htmlFont(32px); //750
+	@include iphone6() {
+		font-size: screen2fontSize(375PX);
 	}
-}
+	@include iphone6-plus() {
+		font-size: screen2fontSize(414PX);
+	}
+	@include iphoneX() {
+		font-size: screen2fontSize(375PX);
+	}
 
-//兼容iphone 6
-@media (device-width:375px) and (-webkit-min-device-pixel-ratio:2) {
-	@if $output == 640 {
-		@include htmlFont(23.4375px);
-	}
-	@if $output == 750 {
-		@include htmlFont(37.5px); //750
-	}
-}
-
-//兼容iphone6 plus
-@media (device-width:414px) and (-webkit-min-device-pixel-ratio:3.0) {
-	@if $output == 640 {
-		@include htmlFont(25.875px);
-	}
-	@if $output == 750 {
-		@include htmlFont(41.4px); //750
+	@if $is_each {
+		@each $screen in $screens {
+			@include min-screen($screen) {
+				font-size: screen2fontSize($screen);
+			}
+		}
 	}
 }

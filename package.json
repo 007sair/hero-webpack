@@ -1,6 +1,6 @@
 {
   "name": "hero-webpack",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "hero by webpack",
   "scripts": {
     "dev": "webpack-dev-server --hot --color --config ./build/webpack.dev.config.js",
@@ -20,6 +20,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.7",
+    "cssnano": "^4.0.4",
+    "exports-loader": "^0.7.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
     "html-loader": "^0.5.5",
@@ -27,18 +29,26 @@
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
     "postcss-cssnext": "^3.0.2",
-    "postcss-csso": "^3.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-pxtorem": "^4.0.1",
     "postcss-short": "^4.1.0",
     "postcss-sprites": "^4.2.1",
     "postcss-use": "^2.3.0",
-    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
+    "script-loader": "^0.7.2",
+    "shelljs": "^0.8.2",
     "style-loader": "^0.19.0",
     "stylefmt": "^6.0.0",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
+    "webpack-dashboard": "^2.0.0",
     "webpack-dev-server": "^2.9.3"
+  },
+  "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "axios": "^0.18.0",
+    "vconsole": "^3.2.0",
+    "vue": "^2.5.16",
+    "zepto": "^1.2.0"
   }
 }

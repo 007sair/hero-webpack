@@ -1,1 +1,1 @@
-console.log('load a1.js');
+alert('load a1.js');

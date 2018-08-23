@@ -1,77 +1,28 @@
 /**
- * production
+ * 生产环境 production
  */
 
-// require('./script/del-dist.js');
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+// const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin")
 
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-// const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+const dirVars = require('./config/dir-vars.config.js')
+const entry_config = require('./config/entry.config.js')
+const resolve_config = require('./config/resolve.config.js')
+const module_config = require('./config/module.config')
 
-var dirVars = require('./config/dir-vars.config.js');
-var _getEntry = require('./config/entry.config.js');
-var _resolve = require('./config/resolve.config.js');
-var postcssConfig = require('./config/postcss.config.js');
-
-var config = {
-    entry: _getEntry(),
+let config = {
+    entry: entry_config(),
     output: {
-        path: path.resolve(dirVars.rootDir, "dist"),
+        path: path.resolve(dirVars.distDir),
         filename: "js/[name].min.js?v=[chunkhash:10]",
         publicPath: "/", // 如果不写，生成的资源路径为相对路径
         chunkFilename: "js/[name].min.js"
     },
-    module: {
-        rules: [
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
-            {
-                test: /\.(css|scss)$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: true,
-                            }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: postcssConfig,
-                                sourceMap: true
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                sourceMap: true
-                            }
-                        }
-                    ]
-                })
-            },
-            {
-                test: /\.(png|jpg|gif|jpeg)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 4096,
-                            name: 'images/[name].[ext]?v=[hash:8]'
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.html$/,
-                use: ['html-loader']
-            },
-        ]
-    },
-    resolve: _resolve,
+    module: module_config,
+    resolve: resolve_config,
     plugins: [
         new webpack.DefinePlugin({
             __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
@@ -98,11 +49,12 @@ var config = {
         //     minChunks: 2
         // }),
     ]
-};
+}
 
-//set pages
+// set pages
 config.plugins = config.plugins.concat(
     require('./config/page.config.js'),
-);
+    require('./config/provide.config.js'),
+)
 
-module.exports = config;
+module.exports = config

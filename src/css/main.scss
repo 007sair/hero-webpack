@@ -1,28 +1,29 @@
 /*** px2rem的配置 ***/
+// https://github.com/cuth/postcss-pxtorem
 @use postcss-pxtorem {
-	rootValue: 75; 		//基数  1rem = 75px
-	replace: true;      //false：不替换当前属性为px，会再生成一条相同的属性，rem的优先级更高
-	propList: ['*'];	//匹配属性列表，*号代表匹配所有属性
-	minPixelValue: 2;   //忽略1px的转换 只转换大于1px的值
+	rootValue: 75; 		// 基数 1rem = 75px
+	replace: true;      // false：不替换当前属性为px，会再生成一条相同的属性，rem的优先级更高
+	propList: ['*'];	// 匹配属性列表，*号代表匹配所有属性
+	minPixelValue: 2;   // 忽略1px的转换 只转换大于1px的值
 };
 
 /*** Sass工具 ***/
-@import "base/mixin";  //混合器
+@import "base/_variables";		// 变量
+@import "base/mixin";  			// 混合器
+@import "base/media-queries";  	// 媒体查询简写
 
-/*** 样式初始化 ***/
-@import "base/reset";  //样式重置
-@import "base/media";  //媒体查询
-
-@import "var";		   //变量
-@import "common";	   //公共样式
+@import "base/_reset";  		// 样式重置
+@import "base/_media";  		// 媒体查询
+@import "base/_helper";	   		// 公共样式
+@import "base/_iphoneX";	   	// iphoneX适配
 
 // 模块
-@import "mod/mu";	   //公共样式
+@import "mod/mu";	   // 移动端通用弹层库的样式
 
 /*** 页面css入口 ***/
 
-//page1
+// page1
 @import "pages/page1";
 
-//page2
+// page2
 @import "pages/page2";

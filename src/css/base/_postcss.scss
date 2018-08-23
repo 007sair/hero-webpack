@@ -12,10 +12,7 @@
     propList: ['*']; //匹配属性列表，*号代表匹配所有属性
 }
 
-/*
- * 定义变量
- * by postcss-cssnext
- */
+/* 定义变量 @postcss-cssnext */
 :root {
     --red: #f00;
     --blue: blue;
@@ -38,6 +35,7 @@
  * 添加前缀
  * by postcss-cssnext like autoprefixer
  */
+/* 添加前缀 @postcss-cssnext */
 .flex {
     display: flex;
 }

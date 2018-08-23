@@ -1,10 +1,17 @@
-var path = require('path');
-var dirs = {};
+/**
+ * 路径对象
+ */
 
-dirs.rootDir = path.resolve(__dirname, '../../'); //根目录
-dirs.srcDir = path.resolve(dirs.rootDir, 'src'); //源代码目录
-dirs.distDir = path.resolve(dirs.rootDir, 'dist'); //生成目录
+const path = require('path')
 
-// console.log(dirs);
+const dirs = {}
 
-module.exports = dirs;
+dirs.rootDir = path.resolve(__dirname, '../../')
+
+// 源代码目录
+dirs.srcDir = path.resolve(dirs.rootDir, 'src')
+
+// 构建生成目录
+dirs.distDir = path.resolve(dirs.rootDir, 'dist')
+
+module.exports = dirs

@@ -1,6 +1,5 @@
-var fs = require('fs');
-var rimraf = require('rimraf');
+const shell = require("shelljs")
+const dirVars = require('../config/dir-vars.config.js')
 
-rimraf('dist', fs, function cb() {
-    console.log('./dist目录已删除');
-});
+shell.rm("-rf", dirVars.distDir)
+console.log(`> 已删除目录：${dirVars.distDir}`)

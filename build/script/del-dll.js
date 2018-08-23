@@ -1,11 +1,9 @@
-var fs = require('fs');
-var rimraf = require('rimraf');
+const path = require('path')
+const shell = require("shelljs")
+const dirVars = require('../config/dir-vars.config.js')
 
-//此文件通过npm run dll创建
-rimraf('manifest.json', fs, function () {
-    console.log('manifest.json已删除');
-});
+shell.rm("-rf", 'manifest.json')
+console.log('> 已删除 manifest.json')
 
-rimraf('dist/js/vendor.min.js', fs, function () {
-    console.log('vendor.min.js已删除');
-});
+shell.rm("-rf", path.resolve(dirVars.distDir, 'js/vendor.min.js') )
+console.log('> 已删除 dist/js/vendor.min.js')
