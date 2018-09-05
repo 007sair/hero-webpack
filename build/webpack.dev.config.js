@@ -36,6 +36,7 @@ let config = {
         hot: true,
         host: '0.0.0.0', // 不填时无法通过手机访问 
         stats: stats_config,
+        disableHostCheck: true,
         // quiet: true, // 静默构建，不会在控制台输出任何信息
         contentBase: path.join(__dirname, 'dist'),  // 本地服务器所加载的页面所在的目录
     },
