@@ -8,7 +8,7 @@ const dirVars = require('./dir-vars.config.js')
 module.exports = {
     alias: {
         '@': path.resolve(dirVars.srcDir),
-        vue: 'vue/dist/vue.min.js'
+        'vue$': 'vue/dist/vue.min.js'
     },
     extensions: ['.js', '.css', '.scss'],
 }

@@ -28,24 +28,30 @@ let config = [
     }),
     cssnano({
         preset: ['default']
-    }),
-    sprites({ // 雪碧图插件
-        spritePath: './dist/images/', // 生成的雪碧图存放路径
-        spritesmith: {
-            padding: 15
-        },
-        filterBy(image) { // 过滤路径为 assets/sprites 下的图片
-            if (!/\assets\/sprites/.test(image.url)) {
-                return Promise.reject();
-            }
-            return Promise.resolve();
-        }
     })
 ];
 
 // dev模式下格式化css
 if (TARGET === 'dev') {
     config.push(stylefmt)
+}
+
+// 生产环境才生产对应的文件
+if (TARGET == 'build') {
+    config.concat([
+        sprites({ // 雪碧图插件
+            spritePath: './dist/images/', // 生成的雪碧图存放路径
+            spritesmith: {
+                padding: 15
+            },
+            filterBy(image) { // 过滤路径为 assets/sprites 下的图片
+                if (!/\assets\/sprites/.test(image.url)) {
+                    return Promise.reject();
+                }
+                return Promise.resolve();
+            }
+        })
+    ])
 }
 
 

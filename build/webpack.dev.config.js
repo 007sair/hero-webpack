@@ -2,7 +2,7 @@
  * 开发环境 development
  */
 
-require('./script/del-dist.js');
+// require('./script/del-dist.js');
 
 const path = require('path');
 const webpack = require('webpack');

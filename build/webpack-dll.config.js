@@ -14,7 +14,12 @@ module.exports = {
         vendor: [ // 指定要抽离的模块
             'amfe-flexible',
             'babel-polyfill',
-            // 'vue',
+            
+            /**
+             * 注意：这里没有写成vue是因为vue是通过alias的别名得来，
+             * 而webpack.dll.config.js并不知道vue指代的是'vue/dist/vue.min.js'，
+             */
+            // 'vue/dist/vue.min.js',
             'axios'
         ],
     },
